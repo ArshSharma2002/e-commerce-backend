@@ -14,17 +14,14 @@ const userSchema = new mongoose.Schema({
     fullname:{
         type: String,
         required: true,
-        lowercase: true,
-        trim: true,
-        index: true // for search optimization
+        lowercase: true
     },
     email:{
         type: String,
         required: true,
         unique: true,
         lowercase: true,
-        trim: true,
-        index: true // for search optimization
+        trim: true
     },
     phone:{
         type: String,

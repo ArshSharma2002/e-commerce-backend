@@ -20,39 +20,53 @@ const generateAccessAndRefreshTokens = async (userId) => {
     }
 }
 
-const registerUser = async (req, res) => {
-    try {
-        const { username, fullname, email, phone, address, password } = req.body
+const registerUser = async (req, res)=>{
 
-        if ([fullname, username, email, password, phone, address].some((field) => { field?.trim() === "" })) {
-            throw new ApiError(400, "All fields are required !!!")
-        }
+    // steps:
+    // extract data sent by user from frontend
+    // validate that data
+    // check whether user already created or not (using email or username)
+    // check for images (i.e. uploaded or not)
+    // upload images to cloudinary
+    // create user object and insert into DB
+    // remove password and refreshtoken from the response after entry
+    // check for user creation
+    // return res
+    
+    const {fullname, username, email, password, phone, address} = req.body
 
-        const existingUser = User.findOne({
-            $or: [{ username: username }, { email: email }]
-        })
-
-        if (existingUser) {
-            throw new ApiError(400, "User with this email already exists !!!")
-        }
-
-        const user = User.create({
-            fullname,
-            username: username.toLowerCase(),
-            email,
-            password,
-            phone,
-            address
-        })
-
-        return res.status(200).json(
-            new ApiResponse(200, createdUser, "User registered successfully")
-        )
-
-
-    } catch (error) {
-        console.error(error)
+    if ([fullname, username, email, password].some((field)=>{field?.trim() ===""})) {
+        throw new ApiError(400, "All fields are required !!!")
     }
+
+    const existedUser = await User.findOne({
+        $or:[{username:username}, {email:email}]
+    })
+    
+    if(existedUser){
+        throw new ApiError(400, "User with this username or email already exists !!!")
+    }
+
+
+    const user = await User.create({
+        fullname,
+        username,
+        email,
+        password,
+        phone,
+        address
+
+    })
+
+    const createdUser = await User.findById(user._id).select("-password -refreshToken")
+    if (!createdUser) {
+        throw new ApiError(500, "Something went wrong, registering user !!!")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, createdUser, "User registered successfully")
+    )
+
 }
 
 const loginUser = async (req, res) => {
@@ -192,4 +206,4 @@ const refreshAccessToken = async (req, res) => {
 
 
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken }
+export { registerUser, loginUser, logoutUser, refreshAccessToken, getCurrentUser}
