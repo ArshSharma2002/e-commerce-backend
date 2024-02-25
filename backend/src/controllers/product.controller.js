@@ -42,49 +42,49 @@ const fetchCategories = async (req, res) => {
 	}
 }  
 
-// const createProduct = async (req, res) => {
-// 	try {
+const createProduct = async (req, res) => {
+	try {
 
-//         const {name, description, price, brand, category, rating} = req.body
+        const {name, description, price, brand, category, rating} = req.body
 
-// 		// Check if the category exists
-// 		const existingCategory = await Category.findOne({ categoryname: category });
+		// Check if the category exists
+		const existingCategory = await Category.findOne({ categoryname: category });
 
-// 		if (!existingCategory) {
-// 			throw new ApiError(404, "Product category not found !!!")
-// 		}
-
-
-//         // Create the product
-// 		const product = new Product({
-//             name,
-//             description,
-//             category:category._id,
-//             brand,
-//             price,
-//             rating
-// 		});
-
-// 		await product.save();
+		if (!existingCategory) {
+			throw new ApiError(404, "Product category not found !!!")
+		}
 
 
-// 		// const product = await Product.create({
-//         //     name,
-//         //     description,
-//         //     category:category._id,
-//         //     brand,
-//         //     price,
-//         //     rating
+        // Create the product
+		const product = new Product({
+            name,
+            description,
+            category:category._id,
+            brand,
+            price,
+            rating
+		});
+
+		await product.save();
+
+
+		// const product = await Product.create({
+        //     name,
+        //     description,
+        //     category:category._id,
+        //     brand,
+        //     price,
+        //     rating
             
-//         // })
+        // })
         
 
-// 		return res.status(200).json(new ApiResponse(200, product, "Product created successfully !!!"))
+		return res.status(200).json(new ApiResponse(200, product, "Product created successfully !!!"))
 
-// 	} catch (error) {
-//         throw new ApiError(500, "Internal Server Error !!!")
-// 	}
-// }
+	} catch (error) {
+        throw new ApiError(500, "Internal Server Error !!!")
+	}
+}
 
 const fetchProductsByCategory = async (req, res) => {
 	try {

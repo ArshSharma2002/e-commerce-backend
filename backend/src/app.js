@@ -29,5 +29,8 @@ app.use("/api/v1/users",userRoutes)
 import productRoutes from './routes/product.routes.js'
 app.use("/api/v1/products/", productRoutes)
 
+import cartRoutes from './routes/cart.routes.js'
+app.use("/api/v1/user/cart/", cartRoutes)
+
 
 export default app
