@@ -4,10 +4,10 @@ import {verifyJWT} from "../middlewares/auth.middleware.js"
 const router = Router()
 
 
-// Routes for cart management
+// cart management routes
 router.post('/addtocart', verifyJWT, addToCart);
-router.get('/getcart', verifyJWT, fetchCart);
-router.put('/updatecart/:cartItemId', verifyJWT, updateCartItem);
+router.get('/fetchcart', verifyJWT, fetchCart);
+router.put('/updatecartitems/:cartItemId', verifyJWT, updateCartItem);
 router.delete('/deletecartitems/:cartItemId', verifyJWT, deleteCartItem);
 
 export default router

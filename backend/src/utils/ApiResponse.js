@@ -1,3 +1,5 @@
+/* NOTE :- this is to structure our "Response" messages for easy debugging.  */
+
 class ApiResponse{
     constructor(statusCode, data, message="Success"){
         this.statusCode = statusCode

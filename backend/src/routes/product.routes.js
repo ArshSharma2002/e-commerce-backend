@@ -3,7 +3,7 @@ import {fetchProducts, fetchProductById, fetchProductsByCategory, fetchCategorie
 import {verifyJWT} from "../middlewares/auth.middleware.js"
 const router = Router()
 
-// product category and product management
+// product & category management routes
 
 // router.post("/createcategory", verifyJWT, createCategory) 
 router.get("/allcategories", verifyJWT, fetchCategories) 

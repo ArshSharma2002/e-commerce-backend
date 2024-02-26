@@ -64,9 +64,9 @@ const updateCartItem = async (req, res) => {
 		const { quantity } = req.body 
 
 		const updatedCart = await Cart.findOneAndUpdate(
-			{ "items._id": cartItemId }, // Find cart item by its ID
-			{ $set: { "items.$.quantity": quantity } }, // Update the quantity of the specific item
-			{ new: true } // Return the modified document
+			{ "items._id": cartItemId },
+			{ $set: { "items.$.quantity": quantity } }, 
+			{ new: true } 
 		) 
 
 		if (!updatedCart) {

@@ -3,8 +3,8 @@ import {placeOrder, getOrderDetails, getOrderHistory} from "../controllers/order
 import {verifyJWT} from "../middlewares/auth.middleware.js"
 const router = Router()
 
-// Routes for order management
-router.get('/placeorder', verifyJWT, placeOrder)
+// order management routes
+router.post('/placeorder', verifyJWT, placeOrder)
 router.get('/orderdetails/:orderId', verifyJWT, getOrderDetails) 
 router.get('/orderhistory', verifyJWT, getOrderHistory) 
 

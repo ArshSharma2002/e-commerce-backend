@@ -1,4 +1,4 @@
-/* NOTE :- this is to structure our error messages and error outputs for easy debugging.  */
+/* NOTE :- this is to structure our "Error" messages and error outputs for easy debugging.  */
 
 class ApiError extends Error{
     constructor(statusCode, message="Something went wrong", errors=[], stack=""){

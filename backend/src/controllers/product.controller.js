@@ -13,15 +13,12 @@ const createCategory = async (req, res) => {
             throw new ApiError(400, "Category name is required !!!")
         }
         
-        // Create the category
 		const category = new Category({
 			categoryname
 		});
 
-		// Save the category to the database
 		await category.save();
 
-		// Return success message
 		return res.status(200).json(new ApiResponse(200, category, "Category created successfully !!!"));
 
 	} catch (error) {
@@ -47,7 +44,6 @@ const createProduct = async (req, res) => {
 
         const {name, description, price, brand, category, rating} = req.body
 
-		// Check if the category exists
 		const existingCategory = await Category.findOne({ categoryname: category });
 
 		if (!existingCategory) {
@@ -55,7 +51,6 @@ const createProduct = async (req, res) => {
 		}
 
 
-        // Create the product
 		const product = new Product({
             name,
             description,
@@ -96,7 +91,6 @@ const fetchProductsByCategory = async (req, res) => {
             throw new ApiError(400, "Category Id is required !!!")
         }
 
-		// Fetch products from the database based on category ID
 		const products = await Product.find({ category: category }).select("name price description brand") 
 
 
@@ -116,19 +110,15 @@ const fetchProductById = async (req, res) => {
             throw new ApiError(400, "Product Id is required !!!")
         }
         
-		// Fetch product from the database based on product ID
 		const product = await Product.findById(productId) 
         
-		// Check if the product exists
 		if (!product) {
             throw new ApiError(404, "Product not found !!!")
 		}
 
-		// Return the product details
 		return res.status(200).json(new ApiResponse(200, product, "Product fetched successfully !!!")) 
 
 	} catch (error) {
-		// Handle errors
         throw new ApiError(500, "Internal Server Error !!!")
 	}
 } 

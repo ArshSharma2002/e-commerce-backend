@@ -11,5 +11,4 @@ router.post("/logout", verifyJWT, logoutUser)
 router.get("/getuser", verifyJWT, getCurrentUser)
 
 
-
 export default router
